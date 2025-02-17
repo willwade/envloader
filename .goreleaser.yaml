@@ -26,15 +26,20 @@ archives:
       - goos: windows
         format: zip
     files:
-      - src: ./envloader.sh
-        dst: ./envloader.sh
-        strip_parent: true
-      - src: ./envloader.ps1
-        dst: ./envloader.ps1
-        strip_parent: true
-      - src: ./envloader.cmd
-        dst: ./envloader.cmd
-        strip_parent: true
+      # Helper scripts
+      - src: "envloader.sh"
+        dst: "envloader.sh"
+      - src: "envloader.ps1"
+        dst: "envloader.ps1"
+      - src: "envloader.cmd"
+        dst: "envloader.cmd"
+      # Wrapper scripts
+      - src: "envload.sh"
+        dst: "envload"
+      - src: "envload.ps1"
+        dst: "envload.ps1"
+      - src: "envload.cmd"
+        dst: "envload.cmd"
 
 changelog:
   sort: asc

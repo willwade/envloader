@@ -22,76 +22,82 @@ Well, I'll be honest - use direnv if you can. It's a great tool and I use it mys
 
 For Linux/macOS (x86_64):
 ```bash
+# Download and extract
 curl -L https://github.com/willwade/envloader/releases/latest/download/envloader_Linux_x86_64.tar.gz | tar xz
-sudo mv envloader /usr/local/bin/
+
+# Move files to a location in your PATH
+sudo mkdir -p /usr/local/bin
+sudo mv envloader envload envloader.sh /usr/local/bin/
 ```
 
 For macOS ARM (M1/M2):
 ```bash
+# Download and extract
 curl -L https://github.com/willwade/envloader/releases/latest/download/envloader_Darwin_arm64.tar.gz | tar xz
-sudo mv envloader /usr/local/bin/
+
+# Move files to a location in your PATH
+sudo mkdir -p /usr/local/bin
+sudo mv envloader envload envloader.sh /usr/local/bin/
 ```
 
-
-## Using PowerShell (Windows)
+### Using PowerShell (Windows)
 
 Download and extract the latest release:
 
 ```powershell
-# Create a directory in your user profile
+# Create directory in your user profile
 New-Item -ItemType Directory -Path "$env:USERPROFILE\.envloader" -Force
 
 # Download and extract
 Invoke-WebRequest -Uri https://github.com/willwade/envloader/releases/latest/download/envloader_Windows_x86_64.zip -OutFile envloader.zip
 Expand-Archive envloader.zip -DestinationPath "$env:USERPROFILE\.envloader" -Force
+
+# Add to PATH (optional - run in PowerShell as Administrator)
+$userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+$envloaderPath = "$env:USERPROFILE\.envloader"
+if ($userPath -notlike "*$envloaderPath*") {
+    [Environment]::SetEnvironmentVariable("Path", "$userPath;$envloaderPath", "User")
+}
 ```
 
-You can now run envloader from: `%USERPROFILE%\.envloader\envloader.exe`
+After installation, you can use the `envload` command (or `envload.ps1` in PowerShell) to load environment variables from any directory.
 
 ## Usage
 
-### Standalone Executable
+The simplest way to use envloader is with the `envload` command, which will automatically detect your shell and set the environment variables:
 
-By default, envloader will:
-1. Search for `.envrc` or `.env` files in the current directory and parent directories
-2. Print environment variables in the correct format for your shell (bash/PowerShell/CMD)
+```bash
+# In bash/zsh:
+envload
+
+# In PowerShell:
+envload.ps1
+
+# In CMD:
+envload
+```
+
+This will:
+1. Find the nearest `.env` or `.envrc` file
+2. Load its environment variables into your current shell session
 3. Support uv environments if detected
 
-Basic usage:
+Advanced options:
 ```bash
-# Print environment variables from nearest .env or .envrc file
-envloader
+# Load from a specific file
+envload -f path/to/.env
 
-# Print environment variables from a specific file
-envloader -f path/to/.env
-
-# Search for .env files up to specific depth
-envloader --depth 3
+# Search up to specific depth for .env files
+envload --depth 3
 ```
 
-The output will automatically format for your shell:
-- Bash/Zsh: `export KEY=value`
-- PowerShell: `$env:KEY = "value"`
-- CMD: `set KEY=value`
+### How it works
 
-### Helper Scripts
+Under the hood, envloader consists of:
+1. A core executable that finds and parses environment files
+2. Shell-specific scripts that apply the variables to your session
 
-The helper scripts automatically capture and apply the environment variables:
-
-#### Shell
-```bash
-source envloader.sh
-```
-
-#### PowerShell
-```powershell
-. .\envloader.ps1
-```
-
-#### Windows CMD
-```batch
-call envloader.cmd
-```
+You can also run the core executable directly with `envloader` to see the commands it would run, without applying them.
 
 ## Building from source
 
