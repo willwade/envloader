@@ -42,7 +42,7 @@ sudo mv envloader envload envloader.sh /usr/local/bin/
 
 ### Using PowerShell (Windows)
 
-Download and extract the latest release:
+Download and extract to your user profile:
 
 ```powershell
 # Create directory in your user profile
@@ -52,15 +52,13 @@ New-Item -ItemType Directory -Path "$env:USERPROFILE\.envloader" -Force
 Invoke-WebRequest -Uri https://github.com/willwade/envloader/releases/latest/download/envloader_Windows_x86_64.zip -OutFile envloader.zip
 Expand-Archive envloader.zip -DestinationPath "$env:USERPROFILE\.envloader" -Force
 
-# Add to PATH (optional - run in PowerShell as Administrator)
+# Add to user's PATH (no admin required)
 $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
 $envloaderPath = "$env:USERPROFILE\.envloader"
-if ($userPath -notlike "*$envloaderPath*") {
-    [Environment]::SetEnvironmentVariable("Path", "$userPath;$envloaderPath", "User")
-}
+[Environment]::SetEnvironmentVariable("Path", "$userPath;$envloaderPath", "User")
 ```
 
-After installation, you can use the `envload` command (or `envload.ps1` in PowerShell) to load environment variables from any directory.
+After installation, you can use the `envload.ps1` command to load environment variables from any directory. You may need to restart your terminal for the PATH changes to take effect.
 
 ## Usage
 
