@@ -18,7 +18,18 @@ Well, I'll be honest - use direnv if you can. It's a great tool and I use it mys
 
 ## Installation
 
-### Using curl (Linux/macOS)
+### macOS
+```bash
+brew install willwade/envloader
+```
+
+### Windows
+```powershell
+scoop bucket add envloader https://github.com/willwade/envloader
+scoop install envloader/scoop/envloader
+```
+
+### Manual Installation
 
 For Linux/macOS (x86_64):
 ```bash
@@ -39,8 +50,6 @@ curl -L https://github.com/willwade/envloader/releases/latest/download/envloader
 sudo mkdir -p /usr/local/bin
 sudo mv envloader envload envloader.sh /usr/local/bin/
 ```
-
-### Using PowerShell (Windows)
 
 Download and extract to your user profile:
 
