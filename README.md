@@ -29,6 +29,8 @@ scoop bucket add envloader https://github.com/willwade/envloader
 scoop install envloader/scoop/envloader
 ```
 
+After installation, you can use `envload` to load environment variables in both PowerShell and CMD. If you want to use the `envloader` executable directly, you can do so by running `envloader` in your terminal. It should be in your path if using scoop. 
+
 ### Manual Installation
 
 For Linux/macOS (x86_64):

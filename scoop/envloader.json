@@ -11,17 +11,8 @@
     },
     "bin": [
         ["envloader.exe", "envloader"],
-        ["envloader.cmd", "envloader.cmd"],
-        ["envloader.ps1", "envloader.ps1"],
-        ["envload.cmd", "envload.cmd"],
-        ["envload.ps1", "envload.ps1"]
-    ],
-    "persist": [
-        "envloader.exe",
-        "envloader.cmd",
-        "envloader.ps1",
-        "envload.cmd",
-        "envload.ps1"
+        ["envload.ps1", "envload"],
+        ["envload.cmd", "envload"]
     ],
     "checkver": "github",
     "autoupdate": {
