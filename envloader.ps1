@@ -11,10 +11,25 @@ if ($exitCode -ne 0) {
     exit 1
 }
 
-# Apply the environment variables
 # Join multiple lines if output is an array
 if ($output -is [array]) {
     $output = $output -join "`n"
 }
-Invoke-Expression $output
+
+# Handle each line separately to properly escape special characters
+$output -split "`n" | ForEach-Object {
+    if ($_ -match '^(\$env:[^=]+)\s*=\s*(.*)$') {
+        $varName = $matches[1]
+        $value = $matches[2]
+        
+        # If value starts with a quote, assume it's already properly quoted
+        if ($value -match '^\s*"') {
+            Invoke-Expression "$varName = $value"
+        } else {
+            # Otherwise, ensure proper quoting
+            Invoke-Expression "$varName = `"$value`""
+        }
+    }
+}
+
 Write-Host "Environment variables applied successfully."

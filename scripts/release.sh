@@ -41,6 +41,13 @@ windows_x86_64_hash=$(curl -sL "https://github.com/willwade/envloader/releases/d
 # 4. Update Formula/envloader.rb
 echo "Updating Homebrew formula..."
 version_no_v=${version#v}
+
+# First update all version numbers in URLs
+sed -i '' \
+    -e "s|/v[0-9][^/]*/|/v$version_no_v/|g" \
+    Formula/envloader.rb
+
+# Then update version and hashes
 sed -i '' \
     -e "s/version \".*\"/version \"$version_no_v\"/" \
     -e "s/\(Darwin_arm64\.tar\.gz.*sha256 \"\)[^\"]*\"/\1$darwin_arm64_hash\"/" \
