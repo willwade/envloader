@@ -20,10 +20,16 @@ if ($output -is [array]) {
 $output -split "`n" | ForEach-Object {
     if ($_ -match '^(\$env:[^=]+)\s*=\s*(.*)$') {
         $varName = $matches[1]
-        $value = $matches[2]
+        $value = $matches[2].Trim()
         
+        # If value is a JSON string (contains escaped quotes)
+        if ($value -match '^\s*".*\\".+"$') {
+            # Remove outer quotes and set directly
+            $actualValue = $value.Substring(1, $value.Length - 2)
+            Set-Item -Path "Env:$($varName.Replace('$env:', ''))" -Value $actualValue
+        }
         # If value starts with a quote, assume it's already properly quoted
-        if ($value -match '^\s*"') {
+        elseif ($value -match '^\s*"') {
             Invoke-Expression "$varName = $value"
         } else {
             # Otherwise, ensure proper quoting
