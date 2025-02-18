@@ -6,14 +6,14 @@ class Envloader < Formula
   if OS.mac?
     if Hardware::CPU.arm?
       url "https://github.com/willwade/envloader/releases/download/v0.1.6/envloader_Darwin_arm64.tar.gz"
-      sha256 "ba6499f6c860d4b2f65ffb9cc781f6af122a6039c0c31bac9049c0180c782994"
+      sha256 "a8bef03a3003bd1d7d3fdf587f153a0ce6eac048752bd6ed0b32398043ffeba2"
     else
       url "https://github.com/willwade/envloader/releases/download/v0.1.6/envloader_Darwin_x86_64.tar.gz"
-      sha256 "0354e844d46f3fecbb2a7afd1ec26535f9f8265b17586f0c60cbd28ad719a17b"
+      sha256 "4bd71bd8bf2fa4e89170a9c80bf14bd02edaaaa8d969b59ad12d3c383cdedae6"
     end
   else
     url "https://github.com/willwade/envloader/releases/download/v0.1.6/envloader_Linux_x86_64.tar.gz"
-    sha256 "48d92b88949497af984982bb938055bdbff8ddf78a0e4e9fb5b670b1c1982e95"
+    sha256 "9e07b942e552eb0df786a3b5b842ea035c6bbf7eed01d47df047c70e3d9d7b88"
   end
 
   def install

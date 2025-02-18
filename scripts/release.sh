@@ -53,17 +53,17 @@ echo "Windows x86_64: $windows_x86_64_hash"
 echo "Updating Homebrew formula..."
 version_no_v=${version#v}
 
-# First update all version numbers in URLs
+# First update all version numbers in URLs and version field
 sed -i '' \
     -e "s|/v[0-9][^/]*/|/v$version_no_v/|g" \
+    -e "s/version \".*\"/version \"$version_no_v\"/" \
     Formula/envloader.rb
 
-# Then update version and hashes
+# Then update hashes with more specific patterns
 sed -i '' \
-    -e "s/version \".*\"/version \"$version_no_v\"/" \
-    -e "s/\(Darwin_arm64\.tar\.gz.*sha256 \"\)[^\"]*\"/\1$darwin_arm64_hash\"/" \
-    -e "s/\(Darwin_x86_64\.tar\.gz.*sha256 \"\)[^\"]*\"/\1$darwin_x86_64_hash\"/" \
-    -e "s/\(Linux_x86_64\.tar\.gz.*sha256 \"\)[^\"]*\"/\1$linux_x86_64_hash\"/" \
+    -e "/Darwin_arm64\.tar\.gz/,/sha256/s/sha256 \"[^\"]*\"/sha256 \"$darwin_arm64_hash\"/" \
+    -e "/Darwin_x86_64\.tar\.gz/,/sha256/s/sha256 \"[^\"]*\"/sha256 \"$darwin_x86_64_hash\"/" \
+    -e "/Linux_x86_64\.tar\.gz/,/sha256/s/sha256 \"[^\"]*\"/sha256 \"$linux_x86_64_hash\"/" \
     Formula/envloader.rb
 
 # 6. Update scoop/envloader.json
