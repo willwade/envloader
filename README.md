@@ -18,6 +18,7 @@ Well, I'll be honest - use direnv if you can. It's a great tool and I use it mys
 
 ### Using Homebrew
 ```bash
+brew tap willwade/envloader https://github.com/willwade/envloader
 brew install willwade/envloader/envloader
 ```
 
