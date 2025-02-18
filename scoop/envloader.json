@@ -10,18 +10,7 @@
     }
   },
   "bin": [
-    [
-      "envloader.exe",
-      "envloader"
-    ],
-    [
-      "envload.ps1",
-      "envload"
-    ],
-    [
-      "envload.cmd",
-      "envload"
-    ]
+    "envloader.exe"
   ],
   "checkver": "github",
   "autoupdate": {

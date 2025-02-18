@@ -1,7 +1,38 @@
 # envloader
 
-A minimal, standalone tool for loading `.env` and `.envrc` files with no dependencies. Works across platforms (Windows, Linux, Mac) and can be used either as a standalone executable or with helper scripts.
+A minimal, standalone .env and .envrc loader with no dependencies.
 
+## Installation
+
+### Using Homebrew
+```bash
+brew install willwade/envloader/envloader
+```
+
+### Using Scoop
+```powershell
+scoop bucket add envloader https://github.com/willwade/envloader
+scoop install envloader
+```
+
+## Usage
+
+```bash
+# In bash/zsh:
+eval "$(envloader)"
+
+# In PowerShell:
+Invoke-Expression (envloader)
+```
+
+This will automatically:
+1. Look for a `.env` or `.envrc` file in the current directory
+2. Load and set the environment variables from that file
+3. Handle complex values like JSON strings properly
+
+## Development
+
+[Development instructions here...]
 
 ## Why use this instead of direnv?
 
@@ -70,18 +101,20 @@ $envloaderPath = "$env:USERPROFILE\.envloader"
 [Environment]::SetEnvironmentVariable("Path", "$userPath;$envloaderPath", "User")
 ```
 
-After installation, you can use the `envload.ps1` command to load environment variables from any directory. You may need to restart your terminal for the PATH changes to take effect.
+After installation, you can use the `envloader.ps1` command to load environment variables from any directory. You may need to restart your terminal for the PATH changes to take effect.
 
 ## Usage
 
 The simplest way to use envloader is with the `envload` command, which will automatically detect your shell and set the environment variables:
 
 ```bash
-# In bash/zsh:
-envload
+# In bash/zsh (note the . or source command):
+. envload
+# or
+source envload
 
 # In PowerShell:
-envload.ps1
+envload
 
 # In CMD:
 envload
@@ -126,3 +159,6 @@ goreleaser build --snapshot --skip-publish
 ---
 
 Note: To use the GitHub releases, you'll need to set up a `GITHUB_TOKEN` with appropriate permissions if you're downloading from private repositories.
+
+## Windows PowerShell
+After installation, you can use the `envloader.ps1` command to load environment variables from any directory. You may need to restart your terminal for the PATH changes to take effect.

@@ -99,6 +99,12 @@ func formatEnvVar(key, value string) string {
 	case "cmd.exe":
 		return fmt.Sprintf("set %s=%s", key, value)
 	default: // Bash/Zsh
+		// Special handling for JSON values
+		if strings.Contains(key, "JSON") {
+			// Escape single quotes in the JSON and wrap in single quotes
+			jsonValue := strings.ReplaceAll(value, "'", "'\\''")
+			return fmt.Sprintf("export %s='%s'", key, jsonValue)
+		}
 		return fmt.Sprintf("export %s=%s", key, value)
 	}
 }
