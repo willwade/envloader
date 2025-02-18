@@ -5,7 +5,6 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"strings"
 )
@@ -74,11 +73,6 @@ func parseEnvFile(envPath string) (map[string]string, error) {
 	return envVars, nil
 }
 
-// detectUV checks if running under `uv`.
-func detectUV() bool {
-	return os.Getenv("VIRTUAL_ENV") != "" && exec.Command("uv", "--version").Run() == nil
-}
-
 // getShell detects the current shell based on environment variables.
 func getShell() string {
 	if os.Getenv("PSModulePath") != "" {
@@ -95,13 +89,12 @@ func formatEnvVar(key, value string) string {
 	shell := getShell()
 	switch shell {
 	case "powershell":
-		return fmt.Sprintf("$env:%s = \"%s\"", key, value)
+		// Join all PowerShell commands with semicolons
+		return fmt.Sprintf("$env:%s='%s';", key, value)
 	case "cmd.exe":
 		return fmt.Sprintf("set %s=%s", key, value)
 	default: // Bash/Zsh
-		// Special handling for JSON values
 		if strings.Contains(key, "JSON") {
-			// Escape single quotes in the JSON and wrap in single quotes
 			jsonValue := strings.ReplaceAll(value, "'", "'\\''")
 			return fmt.Sprintf("export %s='%s'", key, jsonValue)
 		}
@@ -137,26 +130,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	isUV := detectUV()
-
-	if isUV {
-		if err := exec.Command("uv", "--version").Run(); err != nil {
-			fmt.Println("Error: uv is not installed:", err)
-			os.Exit(1)
-		}
-
-		for key, value := range envVars {
-			cmd := exec.Command("uv", "env", "--set", fmt.Sprintf("%s=%s", key, value))
-			if err := cmd.Run(); err != nil {
-				fmt.Println("Error setting environment variable via uv:", err)
-				os.Exit(1)
-			}
-		}
-		fmt.Println("Environment variables applied inside uv session.")
-	} else {
-		// Print formatted environment variables for the detected shell
-		for key, value := range envVars {
-			fmt.Println(formatEnvVar(key, value))
-		}
+	// Always just output shell commands - no special UV handling
+	for key, value := range envVars {
+		fmt.Println(formatEnvVar(key, value))
 	}
 }
