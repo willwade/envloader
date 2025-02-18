@@ -68,9 +68,13 @@ envloader --depth 3
 For a more convenient experience, you can add a shell function to your profile:
 
 ### PowerShell
-Add to your `$PROFILE`:
+Add to your `$PROFILE` (eg. `notepad $PROFILE`):
+
 ```powershell
-function envload { Invoke-Expression $(envloader) }
+function envload { 
+    # Join multiple lines into a single string and pipe to Invoke-Expression
+    envloader | Out-String | Invoke-Expression
+}
 ```
 
 ### Bash
