@@ -14,32 +14,10 @@ builds:
       - darwin
 
 archives:
-  - formats: ['tar.gz']
-    name_template: >-
-      {{ .ProjectName }}_
-      {{- title .Os }}_
-      {{- if eq .Arch "amd64" }}x86_64
-      {{- else if eq .Arch "386" }}i386
-      {{- else }}{{ .Arch }}{{ end }}
-      {{- if .Arm }}v{{ .Arm }}{{ end }}
-    format_overrides:
+  - format_overrides:
       - goos: windows
-        formats: ['zip']
-    files:
-      # Helper scripts
-      - src: "envloader.sh"
-        dst: "envloader.sh"
-      - src: "envloader.ps1"
-        dst: "envloader.ps1"
-      - src: "envloader.cmd"
-        dst: "envloader.cmd"
-      # Wrapper scripts
-      - src: "envload.sh"
-        dst: "envload"
-      - src: "envload.ps1"
-        dst: "envload.ps1"
-      - src: "envload.cmd"
-        dst: "envload.cmd"
+        format: zip
+    files: []  # Empty list - only package the binary
 
 changelog:
   sort: asc
