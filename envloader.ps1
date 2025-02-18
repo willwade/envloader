@@ -12,5 +12,9 @@ if ($exitCode -ne 0) {
 }
 
 # Apply the environment variables
+# Join multiple lines if output is an array
+if ($output -is [array]) {
+    $output = $output -join "`n"
+}
 Invoke-Expression $output
 Write-Host "Environment variables applied successfully."
