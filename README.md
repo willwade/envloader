@@ -20,7 +20,8 @@ Well, I'll be honest - use direnv if you can. It's a great tool and I use it mys
 
 ### macOS
 ```bash
-brew install willwade/envloader
+brew tap willwade/envloader
+brew install envloader
 ```
 
 ### Windows
