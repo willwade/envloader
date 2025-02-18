@@ -1,25 +1,34 @@
 {
-    "version": "0.1.1",
-    "description": "Minimal, standalone .env and .envrc loader with no dependencies",
-    "homepage": "https://github.com/willwade/envloader",
-    "license": "MIT",
-    "architecture": {
-        "64bit": {
-            "url": "https://github.com/willwade/envloader/releases/download/v0.1.1/envloader_Windows_x86_64.zip",
-            "hash": "f9bc51a8d7ebcd0a73c25cf251dd686cbaa7909f89f9b7cce34d1cca174a4bdf"
-        }
-    },
-    "bin": [
-        ["envloader.exe", "envloader"],
-        ["envload.ps1", "envload"],
-        ["envload.cmd", "envload"]
-    ],
-    "checkver": "github",
-    "autoupdate": {
-        "architecture": {
-            "64bit": {
-                "url": "https://github.com/willwade/envloader/releases/download/v$version/envloader_Windows_x86_64.zip"
-            }
-        }
+  "version": "0.1.3",
+  "description": "Minimal, standalone .env and .envrc loader with no dependencies",
+  "homepage": "https://github.com/willwade/envloader",
+  "license": "MIT",
+  "architecture": {
+    "64bit": {
+      "url": "https://github.com/willwade/envloader/releases/download/v0.1.3/envloader_Windows_x86_64.zip",
+      "hash": "714b1ced793f8a1f662008d7584baf536adaf381e639b5e3544ba09862aa81d0"
     }
-} 
+  },
+  "bin": [
+    [
+      "envloader.exe",
+      "envloader"
+    ],
+    [
+      "envload.ps1",
+      "envload"
+    ],
+    [
+      "envload.cmd",
+      "envload"
+    ]
+  ],
+  "checkver": "github",
+  "autoupdate": {
+    "architecture": {
+      "64bit": {
+        "url": "https://github.com/willwade/envloader/releases/download/v$version/envloader_Windows_x86_64.zip"
+      }
+    }
+  }
+}
