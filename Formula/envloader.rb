@@ -1,14 +1,14 @@
 class Envloader < Formula
   desc "Minimal, standalone .env and .envrc loader with no dependencies"
   homepage "https://github.com/willwade/envloader"
-  version "0.1.4"
+  version "0.1.5"
 
   if OS.mac?
     if Hardware::CPU.arm?
-      url "https://github.com/willwade/envloader/releases/download/v0.1.4/envloader_Darwin_arm64.tar.gz"
+      url "https://github.com/willwade/envloader/releases/download/v0.1.5/envloader_Darwin_arm64.tar.gz"
       sha256 "853854d90a42cfebb0f26ffdcf3ed6ec3b86bb65415c5b1a39f1f6705e5c7bc3"
     else
-      url "https://github.com/willwade/envloader/releases/download/v0.1.4/envloader_Darwin_x86_64.tar.gz"
+      url "https://github.com/willwade/envloader/releases/download/v0.1.5/envloader_Darwin_x86_64.tar.gz"
       sha256 "af282500927b5e9ff443e020f00a301e5a02ff3aecc3cf5a787acee3231cfc79"
     end
   else
