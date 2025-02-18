@@ -1,7 +1,7 @@
 class Envloader < Formula
   desc "Minimal, standalone .env and .envrc loader with no dependencies"
   homepage "https://github.com/willwade/envloader"
-  version "0.1.9"
+  version "0.1.10"
 
   on_macos do
     if Hardware::CPU.arm?

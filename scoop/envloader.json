@@ -1,20 +1,20 @@
 {
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Minimal, standalone .env and .envrc loader with no dependencies",
   "homepage": "https://github.com/willwade/envloader",
   "license": "MIT",
   "architecture": {
     "64bit": {
-      "url": "https://github.com/willwade/envloader/releases/download/v0.1.9/envloader_Windows_x86_64.zip",
-      "hash": "8b88d36f1bb05b8f7880397203ef9dd38fd31a506edce163c2b53c810ef7c4a0"
+      "url": "https://github.com/willwade/envloader/releases/download/v0.1.10/envloader_Windows_x86_64.zip",
+      "hash": "e5e9855b71f68152b8b1ed54167b4f318cdba8a79a35d13b3d8d5fc84128ed59"
     },
     "32bit": {
-      "url": "https://github.com/willwade/envloader/releases/download/v0.1.9/envloader_Windows_i386.zip",
-      "hash": "8b60449d0b66a0e04b5aa013ef4260e02f8b48337ecce1b0a8b2f9c1a653a49c"
+      "url": "https://github.com/willwade/envloader/releases/download/v0.1.10/envloader_Windows_i386.zip",
+      "hash": "e1c96b88401d146dc7d4d3292eec02720c1dbbc1acb9fee690e9bd695b3069f4"
     },
     "arm64": {
-      "url": "https://github.com/willwade/envloader/releases/download/v0.1.9/envloader_Windows_arm64.zip",
-      "hash": "e6db46d2d371d2dc16c071981d8f441e039a8c12e107239a1f5a377eaf61c576"
+      "url": "https://github.com/willwade/envloader/releases/download/v0.1.10/envloader_Windows_arm64.zip",
+      "hash": "71969efc53dda1ffcc66af332594b102f0e43451ef40170d0d6974685fbe0389"
     }
   },
   "bin": [
