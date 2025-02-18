@@ -12,7 +12,7 @@ class Envloader < Formula
       sha256 "0354e844d46f3fecbb2a7afd1ec26535f9f8265b17586f0c60cbd28ad719a17b"
     end
   else
-    url "https://github.com/willwade/envloader/releases/download/v0.1.3envloader_Linux_x86_64.tar.gz"
+    url "https://github.com/willwade/envloader/releases/download/v0.1.5/envloader_Linux_x86_64.tar.gz"
     sha256 "48d92b88949497af984982bb938055bdbff8ddf78a0e4e9fb5b670b1c1982e95"
   end
 
