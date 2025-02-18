@@ -31,14 +31,25 @@ git push origin "$version"
 echo "Running goreleaser..."
 goreleaser release --clean
 
-# 3. Get SHA256 hashes for all artifacts
+# 3. Wait for GitHub to process the release
+echo "Waiting for GitHub release to be processed..."
+sleep 10  # Add a delay to ensure files are available
+
+# 4. Get SHA256 hashes for all artifacts
 echo "Getting SHA256 hashes..."
 darwin_arm64_hash=$(curl -sL "https://github.com/willwade/envloader/releases/download/$version/envloader_Darwin_arm64.tar.gz" | shasum -a 256 | cut -d' ' -f1)
 darwin_x86_64_hash=$(curl -sL "https://github.com/willwade/envloader/releases/download/$version/envloader_Darwin_x86_64.tar.gz" | shasum -a 256 | cut -d' ' -f1)
 linux_x86_64_hash=$(curl -sL "https://github.com/willwade/envloader/releases/download/$version/envloader_Linux_x86_64.tar.gz" | shasum -a 256 | cut -d' ' -f1)
 windows_x86_64_hash=$(curl -sL "https://github.com/willwade/envloader/releases/download/$version/envloader_Windows_x86_64.zip" | shasum -a 256 | cut -d' ' -f1)
 
-# 4. Update Formula/envloader.rb
+# Print hashes for verification
+echo "Hashes:"
+echo "Darwin ARM64: $darwin_arm64_hash"
+echo "Darwin x86_64: $darwin_x86_64_hash"
+echo "Linux x86_64: $linux_x86_64_hash"
+echo "Windows x86_64: $windows_x86_64_hash"
+
+# 5. Update Formula/envloader.rb
 echo "Updating Homebrew formula..."
 version_no_v=${version#v}
 
@@ -55,7 +66,7 @@ sed -i '' \
     -e "s/\(Linux_x86_64\.tar\.gz.*sha256 \"\)[^\"]*\"/\1$linux_x86_64_hash\"/" \
     Formula/envloader.rb
 
-# 5. Update scoop/envloader.json
+# 6. Update scoop/envloader.json
 echo "Updating Scoop manifest..."
 jq --arg ver "$version_no_v" \
    --arg url "https://github.com/willwade/envloader/releases/download/$version/envloader_Windows_x86_64.zip" \
@@ -63,7 +74,7 @@ jq --arg ver "$version_no_v" \
    '.version = $ver | .architecture."64bit".url = $url | .architecture."64bit".hash = $hash' \
    scoop/envloader.json > scoop/envloader.json.tmp && mv scoop/envloader.json.tmp scoop/envloader.json
 
-# 6. Commit and push changes
+# 7. Commit and push changes
 echo "Committing and pushing changes..."
 git add Formula/envloader.rb scoop/envloader.json
 git commit -m "chore: update formula and manifest for $version"
