@@ -1,12 +1,12 @@
 {
-  "version": "0.1.6",
+  "version": "0.1.8",
   "description": "Minimal, standalone .env and .envrc loader with no dependencies",
   "homepage": "https://github.com/willwade/envloader",
   "license": "MIT",
   "architecture": {
     "64bit": {
-      "url": "https://github.com/willwade/envloader/releases/download/v0.1.6/envloader_Windows_x86_64.zip",
-      "hash": "fc67b87ce04fb21a6eea1fae043943993710cf65cc17e88b15bcb535cecb7236"
+      "url": "https://github.com/willwade/envloader/releases/download/v0.1.8/envloader_Windows_x86_64.zip",
+      "hash": "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
     }
   },
   "bin": [
