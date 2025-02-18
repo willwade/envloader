@@ -30,6 +30,22 @@ This will automatically:
 2. Load and set the environment variables from that file
 3. Handle complex values like JSON strings properly
 
+Advanced options:
+```bash
+# Load from a specific file
+envloader -f path/to/.env
+
+# Search up to specific depth for .env files
+envloader --depth 3
+```
+
+### How it works
+
+The `envloader` binary:
+1. Finds and reads `.env`/`.envrc` files
+2. Outputs shell-appropriate commands (`export` for bash/zsh, `$env:` for PowerShell)
+3. Uses `eval`/`Invoke-Expression` to set the variables in your current session
+
 ## Development
 
 [Development instructions here...]
@@ -109,15 +125,15 @@ The simplest way to use envloader is with the `envload` command, which will auto
 
 ```bash
 # In bash/zsh (note the . or source command):
-. envload
+. envloader
 # or
-source envload
+source envloader
 
 # In PowerShell:
-envload
+envloader
 
 # In CMD:
-envload
+envloader
 ```
 
 This will:
@@ -128,10 +144,10 @@ This will:
 Advanced options:
 ```bash
 # Load from a specific file
-envload -f path/to/.env
+envloader -f path/to/.env
 
 # Search up to specific depth for .env files
-envload --depth 3
+envloader --depth 3
 ```
 
 ### How it works
@@ -159,6 +175,3 @@ goreleaser build --snapshot --skip-publish
 ---
 
 Note: To use the GitHub releases, you'll need to set up a `GITHUB_TOKEN` with appropriate permissions if you're downloading from private repositories.
-
-## Windows PowerShell
-After installation, you can use the `envloader.ps1` command to load environment variables from any directory. You may need to restart your terminal for the PATH changes to take effect.
