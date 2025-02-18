@@ -7,6 +7,14 @@
     "64bit": {
       "url": "https://github.com/willwade/envloader/releases/download/v0.1.8/envloader_Windows_x86_64.zip",
       "hash": "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
+    },
+    "32bit": {
+      "url": "https://github.com/willwade/envloader/releases/download/v0.1.8/envloader_Windows_i386.zip",
+      "hash": "[hash-for-386]"
+    },
+    "arm64": {
+      "url": "https://github.com/willwade/envloader/releases/download/v0.1.8/envloader_Windows_arm64.zip",
+      "hash": "[hash-for-arm64]"
     }
   },
   "bin": [
@@ -17,6 +25,12 @@
     "architecture": {
       "64bit": {
         "url": "https://github.com/willwade/envloader/releases/download/v$version/envloader_Windows_x86_64.zip"
+      },
+      "32bit": {
+        "url": "https://github.com/willwade/envloader/releases/download/v$version/envloader_Windows_i386.zip"
+      },
+      "arm64": {
+        "url": "https://github.com/willwade/envloader/releases/download/v$version/envloader_Windows_arm64.zip"
       }
     }
   }

@@ -37,17 +37,26 @@ sleep 10  # Add a delay to ensure files are available
 
 # 4. Get SHA256 hashes for all artifacts
 echo "Getting SHA256 hashes..."
+# macOS hashes
 darwin_arm64_hash=$(curl -sL "https://github.com/willwade/envloader/releases/download/$version/envloader_Darwin_arm64.tar.gz" | shasum -a 256 | cut -d' ' -f1)
 darwin_x86_64_hash=$(curl -sL "https://github.com/willwade/envloader/releases/download/$version/envloader_Darwin_x86_64.tar.gz" | shasum -a 256 | cut -d' ' -f1)
-linux_x86_64_hash=$(curl -sL "https://github.com/willwade/envloader/releases/download/$version/envloader_Linux_x86_64.tar.gz" | shasum -a 256 | cut -d' ' -f1)
+
+# Windows hashes for all architectures
 windows_x86_64_hash=$(curl -sL "https://github.com/willwade/envloader/releases/download/$version/envloader_Windows_x86_64.zip" | shasum -a 256 | cut -d' ' -f1)
+windows_i386_hash=$(curl -sL "https://github.com/willwade/envloader/releases/download/$version/envloader_Windows_i386.zip" | shasum -a 256 | cut -d' ' -f1)
+windows_arm64_hash=$(curl -sL "https://github.com/willwade/envloader/releases/download/$version/envloader_Windows_arm64.zip" | shasum -a 256 | cut -d' ' -f1)
+
+# Linux hashes
+linux_x86_64_hash=$(curl -sL "https://github.com/willwade/envloader/releases/download/$version/envloader_Linux_x86_64.tar.gz" | shasum -a 256 | cut -d' ' -f1)
 
 # Print hashes for verification
 echo "Hashes:"
+echo "Windows x86_64: $windows_x86_64_hash"
+echo "Windows i386: $windows_i386_hash"
+echo "Windows ARM64: $windows_arm64_hash"
 echo "Darwin ARM64: $darwin_arm64_hash"
 echo "Darwin x86_64: $darwin_x86_64_hash"
 echo "Linux x86_64: $linux_x86_64_hash"
-echo "Windows x86_64: $windows_x86_64_hash"
 
 # 5. Update Formula/envloader.rb
 echo "Updating Homebrew formula..."
@@ -66,12 +75,23 @@ sed -i '' \
     -e "/Linux_x86_64\.tar\.gz/,/sha256/s/sha256 \"[^\"]*\"/sha256 \"$linux_x86_64_hash\"/" \
     Formula/envloader.rb
 
-# 6. Update scoop/envloader.json
+# 6. Update scoop/envloader.json with all architectures
 echo "Updating Scoop manifest..."
+version_no_v=${version#v}
 jq --arg ver "$version_no_v" \
-   --arg url "https://github.com/willwade/envloader/releases/download/$version/envloader_Windows_x86_64.zip" \
-   --arg hash "$windows_x86_64_hash" \
-   '.version = $ver | .architecture."64bit".url = $url | .architecture."64bit".hash = $hash' \
+   --arg url64 "https://github.com/willwade/envloader/releases/download/$version/envloader_Windows_x86_64.zip" \
+   --arg hash64 "$windows_x86_64_hash" \
+   --arg url32 "https://github.com/willwade/envloader/releases/download/$version/envloader_Windows_i386.zip" \
+   --arg hash32 "$windows_i386_hash" \
+   --arg urlarm "https://github.com/willwade/envloader/releases/download/$version/envloader_Windows_arm64.zip" \
+   --arg hasharm "$windows_arm64_hash" \
+   '.version = $ver | 
+    .architecture."64bit".url = $url64 | 
+    .architecture."64bit".hash = $hash64 |
+    .architecture."32bit".url = $url32 |
+    .architecture."32bit".hash = $hash32 |
+    .architecture."arm64".url = $urlarm |
+    .architecture."arm64".hash = $hasharm' \
    scoop/envloader.json > scoop/envloader.json.tmp && mv scoop/envloader.json.tmp scoop/envloader.json
 
 # 7. Commit and push changes
