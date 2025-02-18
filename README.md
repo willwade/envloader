@@ -27,7 +27,7 @@ brew install willwade/envloader/envloader
 ### Windows
 ```powershell
 scoop bucket add envloader https://github.com/willwade/envloader
-scoop install envloader/scoop/envloader
+scoop install envloader
 ```
 
 After installation, you can use `envload` to load environment variables in both PowerShell and CMD. If you want to use the `envloader` executable directly, you can do so by running `envloader` in your terminal. It should be in your path if using scoop. 
